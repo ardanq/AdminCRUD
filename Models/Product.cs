@@ -21,7 +21,7 @@ namespace AdminCRUD.Models
 
         [Required]
         [DefaultValue("true")]
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
 
 
