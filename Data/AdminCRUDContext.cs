@@ -8,5 +8,6 @@ namespace AdminCRUD.Data
         public AdminCRUDContext(DbContextOptions<AdminCRUDContext> options) : base(options) { }
 
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
