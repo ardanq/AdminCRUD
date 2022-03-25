@@ -57,6 +57,24 @@ namespace AdminCRUD.Controllers
             return RedirectToAction("index");
         }
 
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            Product prod = _context.Products.Where(x => x.Id == Id).FirstOrDefault();
+            return View(prod);
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(Product product)
+        {
+            _context.Attach(product);
+            _context.Entry(product).State = EntityState.Deleted;
+            _context.SaveChanges();
+            return RedirectToAction("index");
+        }
+
+
 
 
 
