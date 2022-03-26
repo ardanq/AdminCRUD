@@ -20,6 +20,12 @@ namespace AdminCRUD.Controllers
             return View(products);
         }
 
+        public IActionResult IndexAjax()
+        {
+            List<Product> products = _context.Products.ToList();
+            return View(products);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -74,6 +80,40 @@ namespace AdminCRUD.Controllers
             return RedirectToAction("index");
         }
 
+        #region "Ajax Functions"
+
+        [HttpPost]
+        public IActionResult DeleteProduct(int Id)
+        {
+            Product prod = _context.Products.Where(x => x.Id == Id).FirstOrDefault();
+            _context.Entry(prod).State = EntityState.Deleted;
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        public IActionResult ViewProduct(int Id)
+        {
+            Product prod = _context.Products.Where(x => x.Id == Id).FirstOrDefault();
+            return PartialView("_detail",prod);
+        }
+
+        public IActionResult EditProduct(int Id)
+        {
+            Product prod = _context.Products.Where(x => x.Id == Id).FirstOrDefault();
+            return PartialView("_Edit", prod);
+        }
+
+        public IActionResult UpdateProduct(Product product)
+        {
+            _context.Attach(product);
+            _context.Entry(product).State = EntityState.Modified;
+            _context.SaveChanges();
+            return PartialView("_Product",product);
+        }
+
+
+
+        #endregion
 
 
 
